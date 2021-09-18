@@ -14,18 +14,19 @@ contract MintPass is ERC721, Ownable, PaymentSplitter {
     using Counters for Counters.Counter;
     using Address for address;
     
+    mapping (uint256 => string) private _tokenURIs;
+    mapping(address => uint256) userPurchaseTotal;
+
+    string private _baseURIextended;
+    
     Counters.Counter private _tokenIdCounter;
     
     uint256 public constant maxMintPassSupply = FILLMEOUT;
     bool public saleStatus = false;
     uint256 public salePrice;
-    uint256 public maxPurchaseAmount = 5;
+    uint256 public maxPurchaseAmount = FILLMEOUT;
     
     address payable thisContract;
-    address[] public owners;
-    
-    mapping(address => uint256) userPurchaseTotal;
-    
     
     address[] private _team = [
         0x5B38Da6a701c568545dCfcB03FcB875f56beddC4
@@ -41,6 +42,29 @@ contract MintPass is ERC721, Ownable, PaymentSplitter {
     fallback() external payable {
 
   	}
+  	
+    function totalSupply() external view returns (uint256) {
+        return _tokenIdCounter.current();
+    }
+    
+    function setSaleStatus(bool _trueOrFalse) external onlyOwner {
+        saleStatus = _trueOrFalse;
+    }
+    
+    function setSalePrice(uint256 _priceInWei) external onlyOwner {
+        salePrice = _priceInWei;
+    }
+    
+    function withdrawAll() external onlyOwner {
+        for (uint256 i = 0; i < _team.length; i++) {
+            address payable wallet = payable(_team[i]);
+            release(wallet);
+        }
+    }
+  	
+  	function setBaseURI(string memory baseURI_) external onlyOwner() {
+            _baseURIextended = baseURI_;
+    }
     
     function setMaxPurchaseAmount(uint256 _maxAllowed) external onlyOwner {
         maxPurchaseAmount = _maxAllowed;
@@ -68,23 +92,8 @@ contract MintPass is ERC721, Ownable, PaymentSplitter {
         return salePrice.mul(_numberOfPasses);
     }
     
-    function totalSupply() external view returns (uint256) {
-        return _tokenIdCounter.current();
-    }
-    
-    function setSaleStatus(bool _trueOrFalse) external onlyOwner {
-        saleStatus = _trueOrFalse;
-    }
-    
-    function setSalePrice(uint256 _priceInWei) external onlyOwner {
-        salePrice = _priceInWei;
-    }
-    
-    function withdrawAll() external onlyOwner {
-        for (uint256 i = 0; i < _team.length; i++) {
-            address payable wallet = payable(_team[i]);
-            release(wallet);
-        }
+    function _baseURI() internal view virtual override returns (string memory) {
+            return _baseURIextended;
     }
     
 }
