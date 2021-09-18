@@ -21,7 +21,7 @@ contract "WhitelistMinter" is ERC721, Ownable, PaymentSplitter {
 
     string private _baseURIextended;
     
-    uint256 public constant maxTokenSupply = 10000;
+    uint256 public constant maxTokenSupply = FILLMEOUT;
     bool public whiteListSale = false;
     bool public regularSale = false;
     uint256 public salePrice;
