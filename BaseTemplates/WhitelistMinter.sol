@@ -66,7 +66,7 @@ contract "WhitelistMinter" is ERC721, Ownable, PaymentSplitter {
     
     function populateWhitelist(address[] memory _whitelisted) external onlyOwner {
         for(uint256 i = 0; i < _whitelisted.length; i++) {
-            totalAvailableForUser[_whitelisted[i]] = totalAvailableForUser[_whitelisted[i]].add(2);
+            totalAvailableForUser[_whitelisted[i]] = totalAvailableForUser[_whitelisted[i]].add(FILLMEOUT);
         }
     }
     
