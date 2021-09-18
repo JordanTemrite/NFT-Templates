@@ -9,7 +9,7 @@ import "./SafeMath.sol";
 import "./Counters.sol";
 import "./PaymentSplitter.sol";
 
-contract MintPass is ERC721, Ownable, PaymentSplitter {
+contract "MintPass" is ERC721, Ownable, PaymentSplitter {
     using SafeMath for uint256;
     using Counters for Counters.Counter;
     using Address for address;
