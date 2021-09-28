@@ -15,7 +15,7 @@ contract FooDogs is ERC721, Ownable {
     
     Counters.Counter private _tokenIdCounter;
     
-    address public immutable buddhaContract = 0x7559190a5087c111A7937E424302F45C050C44Ee;
+    address public immutable buddhaContract = 0x657F49b422f98B3092F27add6210831BF2e56622;
 
     mapping (uint256 => string) private _tokenURIs;
     mapping(address => uint256) public totalMinted;
