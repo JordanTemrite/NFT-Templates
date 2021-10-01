@@ -26,7 +26,7 @@ contract FooDogs is ERC721, Ownable {
     string private _baseURIextended;
     
     uint256 public constant maxTokenSupply = 8888;
-    uint256 public constant maxFFARedeem = 10;
+    uint256 public constant maxFFARedeem = 5;
     
     bool public reservedMint = false;
     bool public freeForAll = false;
